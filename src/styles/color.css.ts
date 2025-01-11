@@ -9,13 +9,13 @@ export const color = {
   },
   flavor: {
     fruity: '#DB1C24',
-    floral: '#DBOD69',
+    floral: '#DB0D69',
     sweet: '#E45833',
     nutty: '#A97B64', // 코코아 동일
     spices: '#AE202E',
     roasted: '#C94930',
     green: '#177A30', // vagetable 동일
     sour: '#ECB50F',
-    other: '#OAA4B6',
+    other: '#0AA4B6',
   },
 };
