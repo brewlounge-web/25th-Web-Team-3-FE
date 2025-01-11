@@ -1,6 +1,7 @@
 import { createGlobalTheme, style } from '@vanilla-extract/css';
+import { color } from './color.css';
 
-export const fontVars = createGlobalTheme(':root', {
+export const fontVars = {
   fontFamily: {
     pretendard: 'Pretendard, sans-serif',
     dotgothic: 'DotGothic16, sans-serif',
@@ -39,7 +40,7 @@ export const fontVars = createGlobalTheme(':root', {
     normal: '0%',
     loose: '-0.2%',
   },
-});
+};
 
 export const title1 = {
   fontFamily: fontVars.fontFamily.pretendard,
@@ -137,3 +138,9 @@ export const etc = {
   lineHeight: fontVars.lineHeight.etc,
   letterSpacing: fontVars.letterSpacing.normal,
 };
+
+export const h1 = style({
+  ...etc,
+  fontWeight:fontVars.fontSize.title1,
+  color:color.flavor.floral,
+});
