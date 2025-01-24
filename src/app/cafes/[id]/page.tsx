@@ -18,7 +18,7 @@ import {
 } from './page.css';
 import { scrollContainer } from '@/components/cafes/[id]/MenuList/MenuList.css';
 import MapButton from '@/components/cafes/[id]/MapButton';
-import ChevronLeft from '@/assets/icon/Chevron_Left.svg';
+import ChevronLeft from '@/assets/Icon/Chevron_Left.svg';
 import { RoastingBar } from '@/components/cafes/[id]/RoastingBar';
 import OriginList from '@/components/cafes/[id]/OriginList';
 import FlavorList from '@/components/cafes/[id]/FlavorItem';
