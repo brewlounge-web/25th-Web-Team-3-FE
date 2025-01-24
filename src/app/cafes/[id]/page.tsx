@@ -26,8 +26,6 @@ import Footer from '@/components/cafes/[id]/Footer';
 import IconWithHashTag from '@/components/cafes/[id]/IconWithHashTag';
 import Link from 'next/link';
 import { getCafeDetail } from '@/apis/cafeDetail';
-import { getCountryFlag } from '@/apis/countryFlag';
-import mockdata from '@/mock/detail.json';
 import { ROUTE_PATH } from '@/constants/routePath';
 import BookMark from '@/components/cafes/[id]/BookMark';
 
