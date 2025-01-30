@@ -5,7 +5,7 @@ interface CafeDetail extends Cafe {
   id: string;
   naverMapUrl: string;
   location: string;
-  mainImages: string;
+  mainImageUrl: string[];
   reasonForSelection: string;
 }
 interface CafeDetailResponse {

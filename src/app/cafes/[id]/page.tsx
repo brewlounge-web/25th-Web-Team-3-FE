@@ -38,7 +38,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     <>
       <header className={header}>
         <Link href={ROUTE_PATH.cafes}>
-          <ChevronLeft />
+          <ChevronLeft width={32} height={32}/>
         </Link>
         <BookMark cafeIdForBookMark={cafe.id} />
       </header>
@@ -50,7 +50,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         <MapButton naverMapUrl={cafe.naverMapUrl}/>
       </div>
       <Image
-        src={coffeeBean.imageUrl ? coffeeBean.imageUrl : DEFAULT_CAFE_MAIN_IMAGE}
+        src={cafe.mainImageUrl[0] ? cafe.mainImageUrl[0] : DEFAULT_CAFE_MAIN_IMAGE}
         alt={`1번 카페의 이미지`}
         width={600}
         height={400}
@@ -69,7 +69,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
           <h2 className={subTitle}>대표 원두</h2>
           <article className={recoCoffeeBeanBox}>
             <div>
-              <h3 className={beanCardTitle}>{coffeeBean.engName}</h3>
+              <div className={beanCardTitle}>{coffeeBean.engName}</div>
               <input
                 type="checkbox"
                 id="toggle"
@@ -80,7 +80,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
               <div className={toggleBox}>
                 <h3>{coffeeBean.name}</h3>
                 <label htmlFor="toggle" className={toggleLabel}>
-                  <ChevronLeft />
+                  <ChevronLeft width={24} height={24}/>
                 </label>
               </div>
               <div className={divider}></div>

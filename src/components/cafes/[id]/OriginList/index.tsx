@@ -1,4 +1,4 @@
-import { orginItem, originList } from './OriginList.css';
+import { countryImage, orginItem, originList } from './OriginList.css';
 import HashTag from '@/components/common/HashTag';
 import { getCountryFlag } from '@/apis/countryFlag';
 import Image from 'next/image';
@@ -18,8 +18,14 @@ export default async function OriginList({ countryOfOrigin }: OriginProps) {
         return (
           <HashTag key={idx}>
             <li className={orginItem}>
-              <Image src={imageUrl} alt={`${country} 국기`} width={23} height={18} />
-              {country}
+              <Image
+                className={countryImage}
+                src={imageUrl}
+                alt={`${country} 국기`}
+                width={23}
+                height={16}
+              />
+              <div>{country}</div>
             </li>
           </HashTag>
         );

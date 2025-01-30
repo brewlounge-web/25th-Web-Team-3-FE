@@ -1,5 +1,5 @@
 import { color } from '@/styles/color.css';
-import { body1, etc, title3 } from '@/styles/typo.css';
+import { body1, body1Bold, etc, title3, title4 } from '@/styles/typo.css';
 import { ComplexStyleRule, style } from '@vanilla-extract/css';
 
 export const cafesIdLayout = style({
@@ -9,9 +9,11 @@ export const cafesIdLayout = style({
 export const header = style({
   display: 'flex',
   justifyContent: 'space-between',
-  padding: '1.2rem 1.6rem',
   backgroundColor: color.grayScale.gray100,
-});
+  '& > *': {
+    padding: '1.2rem',
+  },
+}as ComplexStyleRule);
 
 export const title = style({
   backgroundColor: color.grayScale.gray100,
@@ -20,7 +22,12 @@ export const title = style({
   justifyContent: 'space-between',
   alignItems: 'center',
   paddingBottom: '1.6rem',
-  '& div': {
+  '& h1': {
+    ...title4,
+  },
+  '& div > div': {
+    ...body1,
+    color: color.grayScale.gray400,
     display: 'flex',
     flexDirection: 'column',
     gap: '0.6rem',
@@ -59,12 +66,14 @@ export const recoCoffeeBeanBox = style({
   padding: '2.4rem 2rem',
   background: color.grayScale.gray100,
   color: color.grayScale.gray500,
+  '& h3': {
+    ...body1Bold,
+  },
 } as ComplexStyleRule);
 export const beanCardTitle = style({ ...etc });
 
 export const divider = style({
-  height: '0.1rem',
-  border: 'dashed 0.1rem',
+  borderTop: 'dashed 0.1rem',
 });
 
 export const cafesDetailMain = style({

@@ -32,10 +32,11 @@ export default function BookMark({ cafeIdForBookMark }: BookMarkProps) {
   const isCurrentCafeBookMarked = bookMarks.includes(cafeIdForBookMark);
 
   return (
-    <BookMarkIcon
-      className={bookMark}
-      onClick={() => isBookMarkChecked(cafeIdForBookMark)}
-      fill={isCurrentCafeBookMarked ? color.grayScale.gray500: 'none'}
-    />
+    <div className={bookMark}>
+      <BookMarkIcon
+        onClick={() => isBookMarkChecked(cafeIdForBookMark)}
+        fill={isCurrentCafeBookMarked ? color.grayScale.gray500 : 'none'}
+      />
+    </div>
   );
 }
