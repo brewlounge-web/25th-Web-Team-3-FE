@@ -9,6 +9,7 @@ export const rootContainer = style({
   overflowY: 'auto',
   msOverflowStyle: 'none',
   scrollbarWidth: 'none',
+  position: 'relative',
 
   selectors: {
     '&::-webkit-scrollbar': {

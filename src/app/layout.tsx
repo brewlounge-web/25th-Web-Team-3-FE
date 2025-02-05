@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import './globals.css';
-import { rootContainer } from './layout.css';
 import { DotGothic16 } from 'next/font/google';
 import localFont from 'next/font/local';
+import './globals.css';
+import { rootContainer } from './layout.css';
 import Providers from './providers';
 
 const pretendard = localFont({
