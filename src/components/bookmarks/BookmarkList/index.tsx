@@ -2,7 +2,7 @@ import BookmarkBasicImage from '@/assets/Icon/bookmarkBasic.svg';
 import CloseIcon from '@/assets/Icon/closeIcon.svg';
 import { ROUTE_PATH } from '@/constants/routePath';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   bookmarkBasicImage,
   bookmarkListItem,
@@ -25,6 +25,58 @@ interface BookmarkListProps {
   bookmarkList: BookmarkListType[];
 }
 
+interface BookmarkItemProps {
+  item: BookmarkListType;
+  isEdit: boolean;
+  onOpen: (id: string) => void;
+}
+
+const BookmarkItem = ({ item, isEdit, onOpen }: BookmarkItemProps) => {
+  const [imageUrl, setImageUrl] = useState<string>('');
+  const [itemCounts, setItemCounts] = useState<number>(0);
+
+  useEffect(() => {
+    const listData = localStorage.getItem(item.listName);
+    if (listData) {
+      const parsedData = JSON.parse(listData);
+      setImageUrl(parsedData[0]?.mainImageUrl[0] || '');
+      setItemCounts(parsedData.length);
+    }
+  }, [item.listName]);
+
+  return (
+    <li className={bookmarkListItem}>
+      <div className={subTitle}>
+        {isEdit && (
+          <CloseIcon
+            className={closeIcon}
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation();
+              e.preventDefault();
+              onOpen(item.id);
+            }}
+          />
+        )}
+        <div>{item.listName}</div>
+      </div>
+      {imageUrl ? (
+        <Image
+          src={imageUrl}
+          alt={item.listName}
+          className={bookmarkBasicImage}
+          width={148}
+          height={144}
+        />
+      ) : (
+        <BookmarkBasicImage className={bookmarkBasicImage} />
+      )}
+      <div className={listItemCounts}>
+        <span className={listItemCountsNumber}>{itemCounts}</span>
+      </div>
+    </li>
+  );
+};
+
 export default function BookmarkList({
   bookmarkList,
   isEdit,
@@ -35,59 +87,16 @@ export default function BookmarkList({
 }: BookmarkListProps) {
   const [selectedId, setSelectedId] = useState<string>('');
 
-  const handleCloseClick = (e: React.MouseEvent, id: string) => {
-    e.stopPropagation();
-    e.preventDefault();
+  const handleOpen = (id: string) => {
     setSelectedId(id);
     onOpen();
-  };
-
-  const BookmarkItem = ({ item }: { item: BookmarkListType }) => {
-    const listData = localStorage.getItem(item.listName); 
-
-    let imageUrl = '';
-    let itemCounts = 0;
-    if (listData) {
-      const parsedData = JSON.parse(listData);
-      console.log('Parsed Data:', parsedData[0]?.mainImageUrl[0]);
-      imageUrl = parsedData[0]?.mainImageUrl[0];
-      itemCounts = parsedData.length;
-    }
-
-    return (
-      <li className={bookmarkListItem}>
-        <div className={subTitle}>
-          {isEdit && (
-            <CloseIcon
-              className={closeIcon}
-              onClick={(e: React.MouseEvent) => handleCloseClick(e, item.id)}
-            />
-          )}
-          <div>{item.listName}</div>
-        </div>
-        {imageUrl ? (
-          <Image
-            src={`${imageUrl}`}
-            alt={item.listName}
-            className={bookmarkBasicImage}
-            width={148}
-            height={144}
-          />
-        ) : (
-          <BookmarkBasicImage className={bookmarkBasicImage} />
-        )}
-        <div className={listItemCounts}>
-          <span className={listItemCountsNumber}>{itemCounts}</span>
-        </div>
-      </li>
-    );
   };
 
   return (
     <ul className={container}>
       {bookmarkList.map((item) =>
         isEdit ? (
-          <BookmarkItem key={item.id} item={item} />
+          <BookmarkItem key={item.id} item={item} isEdit={isEdit} onOpen={handleOpen} />
         ) : (
           <Link
             key={item.id}
@@ -96,7 +105,7 @@ export default function BookmarkList({
               query: { listName: item.listName },
             }}
           >
-            <BookmarkItem item={item} />
+            <BookmarkItem item={item} isEdit={isEdit} onOpen={handleOpen} />
           </Link>
         )
       )}

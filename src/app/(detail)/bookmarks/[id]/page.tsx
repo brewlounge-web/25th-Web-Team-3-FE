@@ -11,21 +11,37 @@ interface DetailFromBookmarkList {
   mainImageUrl: string;
   name: string;
 }
+
 export default function Page() {
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [detailFromBookmarkList, setDetailFromBookmarkList] = useState<DetailFromBookmarkList[]>([]);
+  const [detailFromBookmarkList, setDetailFromBookmarkList] = useState<DetailFromBookmarkList[]>(
+    []
+  );
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const searchParams = useSearchParams();
-  const listName = String(searchParams.get('listName'));
+  //  북마크 추가 플로우 이전의 대체 코드 , 수정 예정입니다!
+  // const listName = searchParams.get('bookMarkList') || '';
+  const listName = searchParams.get('listName') || '';
   const router = useRouter();
 
-
-  useEffect(() => {
+  const fetchBookmarks = () => {
     const savedBookmarks = localStorage.getItem(listName);
     if (savedBookmarks) {
       setDetailFromBookmarkList(JSON.parse(savedBookmarks));
     }
+  };
+
+  useEffect(() => {
+    fetchBookmarks();
   }, [listName]);
+
+  const handleDelete = (idsToDelete: string[]) => {
+    const updatedList = detailFromBookmarkList.filter(
+      (bookmark) => !idsToDelete.includes(bookmark.id)
+    );
+    setDetailFromBookmarkList(updatedList);
+    localStorage.setItem(listName, JSON.stringify(updatedList));
+  };
 
   return (
     <div className={container}>
@@ -55,14 +71,7 @@ export default function Page() {
           detailFromBookmarkList={detailFromBookmarkList}
           selectedIds={selectedIds}
           setSelectedIds={setSelectedIds}
-          onDelete={(idsToDelete) => {
-            const updatedList = detailFromBookmarkList.filter(
-              (bookmark) => !idsToDelete.includes(bookmark.id)
-            );
-            setDetailFromBookmarkList(updatedList);
-          
-            localStorage.setItem(listName, JSON.stringify(updatedList));
-          }}
+          onDelete={handleDelete}
         />
       </main>
     </div>
