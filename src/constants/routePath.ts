@@ -1,4 +1,6 @@
 export const ROUTE_PATH = {
+  home: '/',
   cafes: '/cafes',
-  cafesDetail:'/cafes/details'
+  cafesDetail: '/cafes/details',
+  bookmarks: '/bookmarks',
 };
