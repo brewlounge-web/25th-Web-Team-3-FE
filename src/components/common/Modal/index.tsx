@@ -13,6 +13,7 @@ interface ModalProps {
   onClose: () => void;
   title: string;
   position?: ModalPosition;
+  closeButton?: boolean;
 }
 
 export default function Modal({
@@ -21,6 +22,7 @@ export default function Modal({
   title,
   position = 'center',
   children,
+  closeButton = true,
 }: PropsWithChildren<ModalProps>) {
   const { targetContainer, dialogRef, onClickDialog } = useModal(isOpen, onClose);
 
@@ -31,9 +33,9 @@ export default function Modal({
   return createPortal(
     <dialog ref={dialogRef} onClose={onClose} onClick={onClickDialog} className={modal}>
       <div className={modalContainer({ position })}>
-        <h1 className={modalTitle}>
+        <h1 className={modalTitle({ position })}>
           <span>{title}</span>
-          <CloseIcon onClick={onClose} className={closeIcon} />
+          {closeButton && <CloseIcon onClick={onClose} className={closeIcon} />}
         </h1>
         <div className={modalContent}>{children}</div>
       </div>
