@@ -1,8 +1,20 @@
-import Image from 'next/image';
+import { getCafeDetail } from '@/apis/cafeDetail';
+import ChevronLeft from '@/assets/Icon/Chevron_Left.svg';
+import BackButton from '@/components/cafes/[id]/BackButton';
+import BookMarkButton from '@/components/cafes/[id]/BookMarkButton';
+import FlavorList from '@/components/cafes/[id]/FlavorItem';
+import Footer from '@/components/cafes/[id]/Footer';
+import IconWithHashTag from '@/components/cafes/[id]/IconWithHashTag';
+import MapButton from '@/components/cafes/[id]/MapButton';
 import MenuList from '@/components/cafes/[id]/MenuList';
+import { scrollContainer } from '@/components/cafes/[id]/MenuList/MenuList.css';
+import OriginList from '@/components/cafes/[id]/OriginList';
+import { RoastingBar } from '@/components/cafes/[id]/RoastingBar';
+import Image from 'next/image';
 import {
   beanCardTitle,
   cafesDetailMain,
+  cafesIdLayout,
   divider,
   header,
   pickReason,
@@ -16,41 +28,28 @@ import {
   toggleInput,
   toggleLabel,
 } from './page.css';
-import { scrollContainer } from '@/components/cafes/[id]/MenuList/MenuList.css';
-import MapButton from '@/components/cafes/[id]/MapButton';
-import ChevronLeft from '@/assets/Icon/Chevron_Left.svg';
-import { RoastingBar } from '@/components/cafes/[id]/RoastingBar';
-import OriginList from '@/components/cafes/[id]/OriginList';
-import FlavorList from '@/components/cafes/[id]/FlavorItem';
-import Footer from '@/components/cafes/[id]/Footer';
-import IconWithHashTag from '@/components/cafes/[id]/IconWithHashTag';
-import Link from 'next/link';
-import { getCafeDetail } from '@/apis/cafeDetail';
-import { ROUTE_PATH } from '@/constants/routePath';
-import BookMark from '@/components/cafes/[id]/BookMark';
-const DEFAULT_CAFE_MAIN_IMAGE = 'https://placehold.co/600x400?text=Cafe1';
+export const DEFAULT_CAFE_MAIN_IMAGE = 'https://placehold.co/600x400?text=Cafe1';
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const detailPageId = (await params).id;
   const data = await getCafeDetail(detailPageId);
-  const { cafe, coffeeBean, menus, updatedAt } = data
+  const { cafe, coffeeBean, menus, updatedAt } = data;
+
   return (
-    <>
+    <div className={cafesIdLayout}>
       <header className={header}>
-        <Link href={ROUTE_PATH.cafes}>
-          <ChevronLeft />
-        </Link>
-        <BookMark cafeIdForBookMark={cafe.id} />
+        <BackButton />
+        <BookMarkButton cafe={cafe} />
       </header>
       <div className={title}>
         <div>
           <h1>{cafe.name}</h1>
           <div>{cafe.location}</div>
         </div>
-        <MapButton naverMapUrl={cafe.naverMapUrl}/>
+        <MapButton naverMapUrl={cafe.naverMapUrl} />
       </div>
       <Image
-        src={coffeeBean.imageUrl ? coffeeBean.imageUrl : DEFAULT_CAFE_MAIN_IMAGE}
+        src={cafe.mainImageUrl[0] ? cafe.mainImageUrl[0] : DEFAULT_CAFE_MAIN_IMAGE}
         alt={`1번 카페의 이미지`}
         width={600}
         height={400}
@@ -69,7 +68,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
           <h2 className={subTitle}>대표 원두</h2>
           <article className={recoCoffeeBeanBox}>
             <div>
-              <h3 className={beanCardTitle}>{coffeeBean.engName}</h3>
+              <div className={beanCardTitle}>{coffeeBean.engName}</div>
               <input
                 type="checkbox"
                 id="toggle"
@@ -80,7 +79,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
               <div className={toggleBox}>
                 <h3>{coffeeBean.name}</h3>
                 <label htmlFor="toggle" className={toggleLabel}>
-                  <ChevronLeft />
+                  <ChevronLeft width={24} height={24} />
                 </label>
               </div>
               <div className={divider}></div>
@@ -110,6 +109,6 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         </section>
         <Footer updatedDate={updatedAt} />
       </main>
-    </>
+    </div>
   );
 }

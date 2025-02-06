@@ -3,6 +3,8 @@ import './globals.css';
 import { body, bodyInnerWrapper, rootContainer } from './layout.css';
 import { DotGothic16 } from 'next/font/google';
 import localFont from 'next/font/local';
+import './globals.css';
+import { rootContainer } from './layout.css';
 import Providers from './providers';
 import BrewloungeQR from '@/components/layout/BrewloungeQR';
 

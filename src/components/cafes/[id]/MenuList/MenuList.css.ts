@@ -18,7 +18,7 @@ export const scrollContainer = style({
 
 export const menuItemList = style({
   display: 'flex', 
-  gap: '2.4rem',
+  gap: '1.6rem',
   width: '100%',
   padding: '0', 
 });

@@ -6,7 +6,11 @@ export const hashtag = style({
   borderRadius:'0.3rem',
   backgroundColor: color.grayScale.gray200,
   color: color.grayScale.gray500,
-  padding:'0.3rem 0.8rem'
+  width: 'max-content',
+  height:'2.8rem',
+  padding:'0 0.8rem',
+  display:'flex',
+  alignItems:'center',
 });
 
 export const hashTagItem = recipe({

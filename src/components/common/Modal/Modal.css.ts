@@ -1,5 +1,5 @@
 import { color } from '@/styles/color.css';
-import { title3 } from '@/styles/typo.css';
+import { title3, title4 } from '@/styles/typo.css';
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
@@ -12,13 +12,24 @@ export const modal = style({
   },
 });
 
-export const modalTitle = style({
-  ...title3,
-  color: color.grayScale.gray500,
-  padding: '2.4rem 2rem 1.2rem 2rem',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
+export const modalTitle = recipe({
+  base: {
+    color: color.grayScale.gray500,
+    padding: '2.4rem 2rem 1.2rem 2rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  variants: {
+    position: {
+      bottom: {
+        ...title3,
+      },
+      center: {
+        ...title4,
+      },
+    },
+  },
 });
 
 export const closeIcon = style({
@@ -39,7 +50,7 @@ export const modalContainer = recipe({
         left: '50%',
         top: '50%',
         transform: 'translate(-50%, -50%)',
-        borderRadius: '1.6rem',
+        borderRadius: '0.4rem',
       },
       bottom: {
         bottom: 0,

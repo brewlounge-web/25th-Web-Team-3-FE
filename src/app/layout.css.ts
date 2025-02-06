@@ -22,6 +22,8 @@ export const rootContainer = style({
   background: color.grayScale.gray100,
 
   scrollbarWidth: 'none',
+  position: 'relative',
+
   selectors: {
     '&::-webkit-scrollbar': {
       display: 'none',

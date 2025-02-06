@@ -1,3 +1,4 @@
+import { body1 } from '@/styles/typo.css';
 import { style } from '@vanilla-extract/css';
 
 export const originList = style({
@@ -7,8 +8,12 @@ export const originList = style({
   marginTop: '0.8rem',
 });
 export const orginItem = style({
-  width: '100%',
+  ...body1,
   display: 'flex',
   alignItems: 'center',
   gap: '0.8rem',
+});
+
+export const countryImage = style({
+  borderRadius: '0.1rem',
 });
