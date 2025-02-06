@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
+import './globals.css';
+import { body, bodyInnerWrapper, rootContainer } from './layout.css';
 import { DotGothic16 } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 import { rootContainer } from './layout.css';
 import Providers from './providers';
+import BrewloungeQR from '@/components/layout/BrewloungeQR';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -25,10 +28,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${dotGothic16.className}`}>
-      <body className={`${pretendard.className}`}>
-        <div id="root" className={`${rootContainer}`}>
-          <Providers>{children}</Providers>
-          <div id="modal-root"></div>
+      <body className={`${pretendard.className} ${body}`}>
+        <div className={bodyInnerWrapper}>
+          <div id="root" className={`${rootContainer}`}>
+            <Providers>{children}</Providers>
+            <div id="modal-root"></div>
+          </div>
+          <aside>
+            <BrewloungeQR />
+          </aside>
         </div>
       </body>
     </html>
