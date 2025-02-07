@@ -1,6 +1,6 @@
 import { REGIONS } from '@/constants/region';
 // cafe 와 detailCafe 모두 사용되는 부분이라 이렇게 재사용하면 어떨지!!??
-export type Tag = { id: number; name: string };
+export type Tag = { id: number; name: string; imageUrl?: string };
 export interface Cafe {
   cafeId: string;
   name: string;
@@ -18,15 +18,19 @@ export interface Menu {
   imageUrl: string;
   description: string;
 }
+export interface Country {
+  name: string;
+  flagImageUrl: string;
+}
 export interface CoffeeBean {
   id: string;
   cafe: Cafe;
   mainImages: string;
   name: string;
-  engName:string;
+  engName: string;
   imageUrl: string;
-  description:string
+  description: string;
   flavors: string[];
-  countryOfOrigin: string[];
+  countryOfOrigin: Country[];
   roastingPoint: string;
 }
