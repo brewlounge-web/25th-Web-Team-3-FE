@@ -21,7 +21,7 @@ export default function MenuList({ menus }: MenuListProps) {
           <div>
             <div className={menuItemTitleBox}>
               <div>{menuItem.name}</div>
-              {menuItem.price === 0 ? '변경' : `${menuItem.price}원`}
+              {menuItem.price === 0 ? '변동' : `${menuItem.price}원`}
             </div>
             <div className={divider}></div>
             <p className={menuItemContent}>{menuItem.description}</p>
