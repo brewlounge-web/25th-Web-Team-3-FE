@@ -1,60 +1,105 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import BookMarkIcon from '@/assets/Icon/Bookmark.svg';
-import { bookMarkButton } from './BookMark.css';
+import Toast from '@/components/common/Toast';
+import { useToast } from '@/components/common/Toast/hooks/useToast';
 import { color } from '@/styles/color.css';
+import { useEffect, useState } from 'react';
+import SavedBookmarkListModal from '../SavedBookmarkListModal';
+import { bookMarkButton } from './BookMark.css';
+import { Cafe, useBookmarkList } from '@/components/bookmarks/BookmarkList/hooks/useBookmarkList';
+import { CheckedItems, useCheckedItems } from './hooks/useCheckedItems';
 
-interface CafeBookmark {
+interface BookmarkButtonProps {
+  cafe: Cafe;
+}
+
+export interface LocalstorageBookmarkList {
   id: string;
-  name: string;
-  location: string;
-  mainImageUrl: string[];
-}
-interface BookMarkProps {
-  cafe: CafeBookmark;
+  listName: string;
+  cafes?: Cafe[] 
 }
 
-export default function BookMarkButton({ cafe }: BookMarkProps) {
-  const [bookMarks, setBookMarks] = useState<CafeBookmark[]>([]);
+const isCafeBookmarked = (cafeId: string, bookmarkList: LocalstorageBookmarkList[]): boolean => {
+  return bookmarkList.some(
+    (bookmark) => bookmark.cafes?.some((bookmarkedCafe) => bookmarkedCafe.id === cafeId) ?? false
+  );
+};
 
-  useEffect(() => {
-    const savedBookmarks = localStorage.getItem('bookMarkList');
-    if (savedBookmarks) {
-      setBookMarks(JSON.parse(savedBookmarks));
-    }
-  }, []);
+export default function BookMarkButton({ cafe }: BookmarkButtonProps) {
+  const [isSavedBookmarkModalOpen, setIsSavedBookmarkModalOpen] = useState<boolean>(false);
 
-  const toggleBookmark = () => {
-    const isBookmarked = bookMarks.some((bookmark) => bookmark.id === cafe.id);
+  const { isToastVisible, toastMessage, showToast } = useToast();
 
-    let updatedBookMarks;
-    if (isBookmarked) {
+  const { bookmarkList, addBookmarkList } = useBookmarkList();
+  const { checkedItems, onCheck } = useCheckedItems(cafe.id);
 
-      updatedBookMarks = bookMarks.filter((bookmark) => bookmark.id !== cafe.id);
-    } else {
-   
-      const newBookmark: CafeBookmark = {
-        id: cafe.id,
-        name: cafe.name,
-        location: cafe.location,
-        mainImageUrl: cafe.mainImageUrl,
-      };
-      updatedBookMarks = [...bookMarks, newBookmark];
-    }
+  const updateLocalStorage = (bookmarkList: LocalstorageBookmarkList[]) => {
+    localStorage.setItem('bookmarkList', JSON.stringify(bookmarkList));
+  };
+  useEffect(() => {}, []);
 
-    setBookMarks(updatedBookMarks);
-    localStorage.setItem('bookMarkList', JSON.stringify(updatedBookMarks));
+  const isCurrentCafeBookMarked = isCafeBookmarked(cafe.id, bookmarkList);
+
+  const openSavedBookmarkModal = () => {
+    setIsSavedBookmarkModalOpen(true);
   };
 
-  const isCurrentCafeBookMarked = bookMarks.some((bookmark) => bookmark.id === cafe.id);
+  const closeSavedBookmarkModal = () => {
+    setIsSavedBookmarkModalOpen(false);
+  };
+
+  const handleShowToast = () => {
+    showToast('북마크 리스트에 저장 되었어요', 3000);
+  };
+
+  const addCafeToBookmark = (bookmark: LocalstorageBookmarkList, cafe: Cafe) => {
+    bookmark.cafes = bookmark.cafes || [];
+    if (!bookmark.cafes.some((bookmarkedCafe) => bookmarkedCafe.id === cafe.id)) {
+      bookmark.cafes.push({
+        id: cafe.id,
+        name: cafe.name,
+        mainImageUrl: cafe.mainImageUrl,
+        location: cafe.location,
+      });
+    }
+  };
+
+  const removeCafeFromBookmark = (bookmark: LocalstorageBookmarkList, cafeId: string) => {
+    bookmark.cafes = bookmark.cafes?.filter((bookmarkedCafe) => bookmarkedCafe.id !== cafeId);
+  };
+
+  const toggleBookmark = (checkedItems: CheckedItems) => {
+    const updatedBookmarkList = bookmarkList.map((bookmark) => {
+      if (checkedItems[bookmark.id]) {
+        addCafeToBookmark(bookmark, cafe);
+      } else {
+        removeCafeFromBookmark(bookmark, cafe.id);
+      }
+      return bookmark;
+    });
+
+    updateLocalStorage(updatedBookmarkList);
+    handleShowToast();
+    closeSavedBookmarkModal();
+  };
 
   return (
     <div className={bookMarkButton}>
       <BookMarkIcon
-        onClick={toggleBookmark}
+        onClick={openSavedBookmarkModal}
         fill={isCurrentCafeBookMarked ? color.grayScale.gray500 : 'none'}
       />
+      <SavedBookmarkListModal
+        isSavedBookmarkModalOpen={isSavedBookmarkModalOpen}
+        onCloseeSavedBookmarkModal={closeSavedBookmarkModal}
+        onSave={toggleBookmark}
+        savedBookmarkList={bookmarkList}
+        addBookmarkList={addBookmarkList}
+        checkedItems={checkedItems}
+        onCheck={onCheck}
+      />
+      {isToastVisible && <Toast message={toastMessage} />}
     </div>
   );
 }

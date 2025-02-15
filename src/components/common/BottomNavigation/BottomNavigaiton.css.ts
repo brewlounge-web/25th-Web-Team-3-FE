@@ -13,8 +13,10 @@ export const BottomNavigationContainer = style({
   maxWidth: '50rem',
   height: '5.7rem',
   overflow: 'hidden',
-  backgroundColor: color.grayScale.gray100,
-  borderTop: `1px solid ${color.grayScale.gray200}`,
+  backgroundColor:color.grayScale.gray100,
+  zIndex:'999',
+  borderTop:`0.1rem solid ${color.grayScale.gray200}`
+  
 });
 
 export const BottomNavigationList = style({
