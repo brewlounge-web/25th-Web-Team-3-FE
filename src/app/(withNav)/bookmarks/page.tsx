@@ -14,8 +14,7 @@ export default function Page() {
   const [isEidt, setIsEdit] = useState<boolean>(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const { bookmarkList, addBookmarkList, deleteBookmarkList } = useBookmarkList();
-  
-  
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -40,7 +39,6 @@ export default function Page() {
     addBookmarkList(listName);
     closeModal();
   };
- 
 
   return (
     <div className={container}>
