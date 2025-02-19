@@ -34,5 +34,5 @@ function BaseCarousel({ children }: React.PropsWithChildren) {
 }
 
 function CarouselSlide({ children }: React.PropsWithChildren) {
-  return <li className={` ${carouselSlide}`}>{children}</li>;
+  return <li className={carouselSlide}>{children}</li>;
 }

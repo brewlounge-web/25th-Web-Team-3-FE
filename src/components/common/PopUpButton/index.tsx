@@ -6,7 +6,7 @@ interface PopUpButton {
   title: string;
   color?: PopUpButtonColor;
   opacity?: PopUpButtonOpacity;
-  onClick: (...args: string[]) => void;
+  onClick?: (...args: string[]) => void;
 }
 
 export default function PopUpButton({
@@ -17,7 +17,11 @@ export default function PopUpButton({
 }: PopUpButton) {
   const isDisabled = opacity === 'light';
   return (
-    <button disabled={isDisabled} className={popUpButton({ color: color, opacity: opacity })} onClick={() => onClick()}>
+    <button
+      disabled={isDisabled}
+      className={popUpButton({ color: color, opacity: opacity })}
+      onClick={() => onClick?.()}
+    >
       {title}
     </button>
   );
