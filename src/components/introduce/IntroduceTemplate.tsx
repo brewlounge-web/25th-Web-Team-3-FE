@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { introDescription, introImage, introSubTitle, introTitle } from './introduce.css';
+import Image from 'next/image';
 
 export interface IntroduceTemplateProps {
   title: React.ReactNode;
@@ -23,7 +24,13 @@ export default function IntroduceTemplate({
         {icon} {subTitle}
       </div>
       <p className={introDescription}>{description}</p>
-      <img className={introImage} src={image} />
+      <Image
+        width="500"
+        height="500"
+        alt={`${title} 대표 이미지`}
+        className={introImage}
+        src={image}
+      />
     </div>
   );
 }

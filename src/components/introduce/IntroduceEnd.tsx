@@ -10,6 +10,7 @@ import PopUpButton from '../common/PopUpButton';
 import Link from 'next/link';
 import { ROUTE_PATH } from '@/constants/routePath';
 import { GOOGLE_FORM_URL } from '@/constants/externalUrl';
+import Image from 'next/image';
 
 export default function IntroduceEnd() {
   return (
@@ -18,16 +19,20 @@ export default function IntroduceEnd() {
         이제 브루라운지에서
         <br /> 마음에 드는 카페를 찾아보세요!
       </h1>
-      <img className={introEndImage} src={introduceEndImage.src} />
+      <Image
+        width="500"
+        height="500"
+        alt="마지막 소개 페이지 대표 이미지"
+        className={introEndImage}
+        src={introduceEndImage.src}
+      />
       <p className={introEndDescription}>
         브루라운지와 함께 커피의 새로운 매력을 발견하고 <br />
         완벽한 한모금을 경험해보세요
       </p>
-      <div style={{ marginBottom: '2.1rem' }}>
-        <Link href={ROUTE_PATH.cafes}>
-          <PopUpButton color="black" title="카페 찾으러 가기" />
-        </Link>
-      </div>
+      <Link href={ROUTE_PATH.cafes}>
+        <PopUpButton color="black" title="카페 찾으러 가기" />
+      </Link>
       <div className={introEndSeparator} />
       <p className={introEndDescription}>
         제보하고 싶은 카페가 있거나, 기재된 카페 정보에

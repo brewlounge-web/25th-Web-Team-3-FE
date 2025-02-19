@@ -5,6 +5,7 @@ import {
   introMainSubTitle,
   introMainTitle,
 } from './introduce.css';
+import Image from 'next/image';
 
 export default function IntroduceMain() {
   return (
@@ -12,7 +13,15 @@ export default function IntroduceMain() {
       <h1 className={introMainTitle}>
         브루라운지는 맛있는 커피를 <br /> 큐레이팅 해주는 공간입니다.
       </h1>
-      <img className={introMainImage} src={introduceImage1.src} />
+
+      <Image
+        width="500"
+        height="500"
+        alt="메인 소개 페이지 대표 이미지"
+        className={introMainImage}
+        src={introduceImage1.src}
+      />
+
       <p className={introMainSubTitle}>
         단 한모금의 후회도 남기지 않을
         <br /> 최고의 커피만을 선별합니다

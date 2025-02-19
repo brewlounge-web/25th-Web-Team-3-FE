@@ -24,7 +24,7 @@ export const carouselSlide = style({ flex: '0 0 100%', minWidth: 0, userSelect: 
 // IntroduceMain
 export const introMainTitle = style({ marginBottom: '2.1rem', ...title2 });
 
-export const introMainImage = style({ marginBottom: '2rem', width: '100%' });
+export const introMainImage = style({ marginBottom: '2rem', width: '100%', height: 'auto' });
 
 export const introMainSubTitle = style({ marginBottom: '1.3rem', ...title4 });
 
@@ -42,17 +42,22 @@ export const introSubTitle = style({
 
 export const introDescription = style({ marginBottom: '2rem', ...body1 });
 
-export const introImage = style({ width: '100%' });
+export const introImage = style({ width: '100%', height: 'auto' });
 
 // IntroduceEnd
 export const introEndTitle = style({ marginBottom: '4.3rem', ...title2 });
 
-export const introEndImage = style({ padding: '0 -2rem', width: '100%', marginBottom: '1.6rem' });
+export const introEndImage = style({
+  padding: '0 -2rem',
+  width: '100%',
+  height: 'auto',
+  marginBottom: '1.6rem',
+});
 
 export const introEndDescription = style({ textAlign: 'center', marginBottom: '1.6rem', ...body1 });
 
 export const introEndSeparator = style({
   width: '100%',
   borderTop: `1px dashed ${color.grayScale.gray500}`,
-  marginBottom: '2.1rem',
+  margin: '2.1rem 0',
 });
