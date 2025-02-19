@@ -5,31 +5,30 @@ import BookMarkButton from '@/components/cafes/[id]/BookMarkButton';
 import FlavorList from '@/components/cafes/[id]/FlavorItem';
 import Footer from '@/components/cafes/[id]/Footer';
 import IconWithHashTag from '@/components/cafes/[id]/IconWithHashTag';
+import MainImageCarousel from '@/components/cafes/[id]/MainImageCarousel';
 import MapButton from '@/components/cafes/[id]/MapButton';
 import MenuList from '@/components/cafes/[id]/MenuList';
-import { scrollContainer } from '@/components/cafes/[id]/MenuList/MenuList.css';
 import OriginList from '@/components/cafes/[id]/OriginList';
 import { RoastingBar } from '@/components/cafes/[id]/RoastingBar';
-import Image from 'next/image';
+
 import {
   beanCardTitle,
   cafesDetailMain,
   cafesIdLayout,
+  coffeeBeanSection,
   divider,
   header,
   pickReason,
   pickReasonBox,
+  pickReasonSection,
   recoCoffeeBeanBox,
   subTitle,
   title,
-  titleImg,
   toggleBox,
   toggleContent,
   toggleInput,
   toggleLabel,
 } from './page.css';
-
-const DEFAULT_CAFE_MAIN_IMAGE = 'https://placehold.co/600x400?text=Cafe1';
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const detailPageId = (await params).id;
@@ -50,15 +49,10 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         </div>
         <MapButton naverMapUrl={cafe.naverMapUrl} />
       </div>
-      <Image
-        src={cafe.mainImageUrl[0] ? cafe.mainImageUrl[0] : DEFAULT_CAFE_MAIN_IMAGE}
-        alt={`1번 카페의 이미지`}
-        width={600}
-        height={400}
-        className={titleImg}
-      />
+      <MainImageCarousel mainImageUrl={cafe.mainImageUrl} />
+
       <main className={cafesDetailMain}>
-        <section>
+        <section className={pickReasonSection}>
           <h2 className={subTitle}>선정 이유</h2>
           <article className={pickReasonBox}>
             <div className={pickReason}>{cafe.reasonForSelection}</div>
@@ -66,7 +60,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
             <IconWithHashTag tags={tags} />
           </article>
         </section>
-        <section>
+        <section className={coffeeBeanSection}>
           <h2 className={subTitle}>대표 원두</h2>
           <article className={recoCoffeeBeanBox}>
             <div>
@@ -103,12 +97,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
             </div>
           </article>
         </section>
-        <section>
-          <h2 className={subTitle}>대표 메뉴</h2>
-          <div className={scrollContainer}>
-            <MenuList menus={menus} />
-          </div>
-        </section>
+        <MenuList menus={menus} />
       </main>
       <Footer updatedDate={updatedAt} />
     </div>
