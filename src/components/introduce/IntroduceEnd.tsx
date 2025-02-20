@@ -40,7 +40,7 @@ export default function IntroduceEnd() {
         <br />
         검토 후 최대한 반영할 수 있도록 노력하겠습니다.
       </p>
-      <a href={GOOGLE_FORM_URL} rel="noopener noreferrer">
+      <a href={GOOGLE_FORM_URL} target="_blank" rel="noopener noreferrer">
         <PopUpButton title="카페 제보 / 오류 신고하기" />
       </a>
     </div>
