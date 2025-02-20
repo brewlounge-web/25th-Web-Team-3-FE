@@ -14,7 +14,6 @@ export const bodyInnerWrapper = style({
 });
 
 export const rootContainer = style({
-  overscrollBehavior: 'contain',
   height: '100svh',
   fontSize: '1.6rem',
   overflowY: 'auto',
