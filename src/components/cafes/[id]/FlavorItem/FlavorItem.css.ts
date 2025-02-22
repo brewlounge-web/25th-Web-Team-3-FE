@@ -11,9 +11,11 @@ export const flavorList = style({
   marginTop: '0.8rem',
 });
 export const flavorItem = style({
+  ...body1,
   display: 'flex',
   alignItems: 'center',
-  whiteSpace:'nowrap'
+  whiteSpace:'nowrap',
+  color:color.grayScale.gray500,
 });
 export const dot = recipe({
   base: {
@@ -25,7 +27,7 @@ export const dot = recipe({
   },
   variants: {
     flavor: {
-      fruity: { backgroundColor: color.flavor.fruity },
+      fruit: { backgroundColor: color.flavor.fruit },
       floral: { backgroundColor: color.flavor.floral },
       sweet: { backgroundColor: color.flavor.sweet },
       spices: { backgroundColor: color.flavor.spices },
@@ -35,5 +37,5 @@ export const dot = recipe({
       nutty: { backgroundColor: color.flavor.nutty },
       other: { backgroundColor: color.flavor.other },
     },
-  },
+  } 
 });

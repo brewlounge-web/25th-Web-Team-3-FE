@@ -4,8 +4,11 @@ import RecommendedCafeList from './RecommendedCafeList';
 import { cafeRecommendationItem, CafeRecommendationName } from './CafeRecommendation.css';
 import { useInfiniteCafeRecommendation } from '@/hooks/server/useInfiniteCafeRecommendation';
 import { IntersectionDetector } from '@/components/common/IntersectionDetector';
+import { useRestoreScroll } from '@/hooks/useRestoreScroll';
 
 export default function CafeRecommendation() {
+  useRestoreScroll('home');
+
   const { data: cafeGroups, fetchNextPage, hasNextPage } = useInfiniteCafeRecommendation();
 
   return (
