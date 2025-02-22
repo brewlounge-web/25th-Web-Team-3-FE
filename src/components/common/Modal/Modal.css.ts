@@ -5,6 +5,8 @@ import { recipe } from '@vanilla-extract/recipes';
 
 export const modal = style({
   zIndex: 1000,
+  border: 'none',
+  background: 'transparent',
 
   selectors: {
     '&::backdrop': {
