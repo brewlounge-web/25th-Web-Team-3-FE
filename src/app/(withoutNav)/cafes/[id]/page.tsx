@@ -34,7 +34,7 @@ import {
 interface PageId {
   id: string;
 }
-
+//SSG 적용 후
 export async function generateStaticParams(): Promise<PageId[]> {
   const cafesResponse = await getCafes();
   const { cafes } = cafesResponse;
