@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import { createVanillaExtractPlugin } from '@vanilla-extract/next-plugin';
+import withPlaiceholder from "@plaiceholder/next";
 
 const withVanillaExtract = createVanillaExtractPlugin();
 
@@ -19,6 +20,7 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -41,4 +43,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withVanillaExtract(nextConfig);
+export default  withPlaiceholder(withVanillaExtract(nextConfig));
